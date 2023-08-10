@@ -42,7 +42,7 @@ def put_records_to_dynamodb(options):
 
     if not exist_dynamodb_table(options):
         create_dynamodb_table(options)
-        time.sleep(2)
+        time.sleep(5)
 
     dynamodb = boto3.client('dynamodb', region_name=region)
 
