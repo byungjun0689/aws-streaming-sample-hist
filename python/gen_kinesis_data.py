@@ -7,6 +7,7 @@ import json
 import random
 import traceback
 import sys
+import datetime
 
 def create_kienesis_stream(options):
     stream_name = options.stream_name
@@ -76,6 +77,8 @@ def put_records_to_kinesis(options):
 
         product_cd = row_dict['product_cd']
         tr_date = row_dict['tr_date']
+        
+        event_time=datetime.datetime.now().isoformat() # Eventtime 
 
         division_cd, division_name, maincategory_cd, maincategory_name, subcategory_cd, subcategory_name, product_cd, product_name, is_pb = get_product_info(options, product_cd)
 
@@ -87,6 +90,8 @@ def put_records_to_kinesis(options):
         row_dict["subcategory_name"] = subcategory_name
         row_dict["product_name"] = product_name
         row_dict["is_pb"] = is_pb
+
+        row_dict["event_time"] = event_time # 2023-08-10T06:23:13.708884
 
         payload_list = []
         partition_key = 'part-{:05}'.format(random.randint(1, 1024))
