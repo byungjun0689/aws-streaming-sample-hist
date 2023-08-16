@@ -55,6 +55,9 @@ def get_product_info(options, product_id):
     
     return division_cd, division_name, maincategory_cd, maincategory_name, subcategory_cd, subcategory_name, product_cd, product_name, is_pb
 
+def generate_random_mins_seconds():
+    return random.randint(0,59) # gen random seconds 0~59
+
 def put_records_to_kinesis(options):
     '''Single Record send to kinesis data stream'''
     MAX_RETRY_COUNT = 3
@@ -70,6 +73,10 @@ def put_records_to_kinesis(options):
     transcation_df = pd.read_csv('../DATA/transaction_order.csv', encoding='utf8',
                 dtype={'tr_date':str,'tr_time':str,'store_cd':str,'store_name':str,'pos_num':str,'receipt_num':str,'product_cd':str,'qty':int,'mount':float, 'tr_datetime':str})
 
+    #transcation_df['tr_time'] = transcation_df['tr_time'].apply(lambda x: f'{x:02}') # 또는 아래 코드에서 :02로 변경해줘도됨
+    #transcation_df['tr_datetime'] = transcation_df.apply(lambda row: f"{row['tr_date']} {row['tr_time']}:{generate_random_mins_seconds():02}:{generate_random_mins_seconds():02}", axis=1)
+    # 미리 적용한 데이터를 그대로 전송.
+    
     transcation_df['tr_datetime'] = pd.to_datetime(transcation_df['tr_datetime'], format='%Y-%m-%d %H:%M:%S')
 
     COUNT_STEP = 20
@@ -81,6 +88,8 @@ def put_records_to_kinesis(options):
         tr_date = row_dict['tr_date']
         
         event_time=datetime.datetime.now().isoformat() # Eventtime 
+
+        
 
         row_dict['tr_datetime'] = row_dict['tr_datetime'].isoformat()
 
