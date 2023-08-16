@@ -68,7 +68,9 @@ def put_records_to_kinesis(options):
         time.sleep(2)
 
     transcation_df = pd.read_csv('../DATA/transaction_order.csv', encoding='utf8',
-                dtype={'tr_date':str,'tr_time':str,'store_cd':str,'store_name':str,'pos_num':str,'receipt_num':str,'product_cd':str,'qty':int,'mount':float})
+                dtype={'tr_date':str,'tr_time':str,'store_cd':str,'store_name':str,'pos_num':str,'receipt_num':str,'product_cd':str,'qty':int,'mount':float, 'tr_datetime':str})
+
+    transcation_df['tr_datetime'] = pd.to_datetime(transcation_df['tr_datetime'], format='%Y-%m-%d %H:%M:%S')
 
     COUNT_STEP = 20
     counter = 0
@@ -79,6 +81,8 @@ def put_records_to_kinesis(options):
         tr_date = row_dict['tr_date']
         
         event_time=datetime.datetime.now().isoformat() # Eventtime 
+
+        row_dict['tr_datetime'] = row_dict['tr_datetime'].isoformat()
 
         division_cd, division_name, maincategory_cd, maincategory_name, subcategory_cd, subcategory_name, product_cd, product_name, is_pb = get_product_info(options, product_cd)
 
@@ -91,7 +95,7 @@ def put_records_to_kinesis(options):
         row_dict["product_name"] = product_name
         row_dict["is_pb"] = is_pb
 
-        row_dict["event_time"] = event_time # 2023-08-10T06:23:13.708884
+        #row_dict["event_time"] = event_time # 2023-08-10T06:23:13.708884
 
         payload_list = []
         partition_key = 'part-{:05}'.format(random.randint(1, 1024))
