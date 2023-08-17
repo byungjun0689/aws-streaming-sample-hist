@@ -17,7 +17,6 @@ Parameters:
     Type: String
     Default: AccountID(email)
   
-
 Resources:
   MyVPC:
     Type: AWS::EC2::VPC
