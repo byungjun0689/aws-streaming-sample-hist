@@ -129,7 +129,7 @@ def put_records_to_kinesis(options):
         #                 PartitionKey=tr_date)
 
         
-        time.sleep(random.choices([0.01, 0.03, 0.05, 0.07, 0.1])[-1])
+        time.sleep(random.choices([1.1, 1.3, 1.5, 1.7, 2])[-1]) # -> time.sleep(random.choices([0.01, 0.03, 0.05, 0.07, 0.1])[-1]) # too fast input records
     
     print('[INFO] Total {} records are processed'.format(counter), file=sys.stderr)
 
