@@ -100,7 +100,7 @@ Cloudformation 출력 URL 선택
 </br>
 
 # 5. S3
-> 💡 [AWS S3 란?]('https://www.notion.so/AWS-S3-8c5afd0c5df64f589009b10de7df1c52?pvs=21') 
+> 💡 [AWS S3 란?](https://www.notion.so/AWS-S3-8c5afd0c5df64f589009b10de7df1c52?pvs=21) 
 
 스트리밍 데이터가 저장 될 저장소로 S3 버킷 내 폴더 생성이 필요.
 
