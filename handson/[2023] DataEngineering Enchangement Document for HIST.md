@@ -7,26 +7,19 @@
 ## 1.1 강의의 목적
 - `Data Engineering 역량강화 인원`에 대해 온라인 강의 수강 후 실제 데이터를 활용하여 전반적인 Data Engineering에 대한 복습과 함께 실시간으로 생성되는 데이터를 Lambda Architecture를 이용하여 배치, 스피드 레이어를 구성하는 형태로 서비스를 제공하는 것을 간략하게 경험해보는 것.
 </br>
-</br>
 
 ## 1.2 해당 `Hands-on` Pipeline의 목적 및 주제
 
 - XX 편의점에서 실시간 매출을 기반으로 데이터를 수집, 저장, 분석 후 시각화 할 수 있는 플랫폼을 구축하고자 한다.
 </br>
-</br>
 
 ## 1.3 강의 기준
 - AWS 서비스를 전혀 사용해보지 못한 사용자를 기반으로 설명.
-</br>
-</br>
-
-</br>
 </br>
 
 # 2. AWS Streaming DATA 아키텍처 및 사전 준비
 ![Untitled](img/Untitled.png)
 
-</br>
 </br>
 
 # 3. DATA
@@ -47,7 +40,6 @@
 
   ![transaction.png](img/transaction.png)
 
-</br>
 </br>
 
 # 4. 사전준비
@@ -106,7 +98,6 @@ Cloudformation 출력 URL 선택
 ```
 
 </br>
-</br>
 
 # 5. S3
 > 💡 [AWS S3 란?]('https://www.notion.so/AWS-S3-8c5afd0c5df64f589009b10de7df1c52?pvs=21') 
@@ -126,7 +117,6 @@ Cloudformation 출력 URL 선택
 - data/transform_data
 - data 폴더 내 3개 추가 폴더 생성
 
-</br>
 </br>
 
 # 6. DynamoDB
@@ -186,7 +176,6 @@ AWS Management Console에서 DynamoDB 서비스를 선택
   ![Untitled](img/Untitled%207.png)
   ![Untitled](img/Untitled%208.png)
 
-</br>
 </br>
 
 # 7. Kinesis
@@ -308,7 +297,6 @@ AWS Management Console에서 Kinesis 서비스를 선택</br>
     ![Untitled](img/Untitled%2020.png)
     
 
-</br>
 </br>
 
 # 8. S3에 저장된 데이터 Athena를 이용해서 분석하기
