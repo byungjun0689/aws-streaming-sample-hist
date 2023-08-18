@@ -65,3 +65,9 @@ ls -lat setup/set-up-streaming-hands-on-cloud9.sh
 ```shell
 ./setup/set-up-streaming-hands-on.sh
 ```
+
+<br>
+<br>
+
+# 실습
+[실습 HandsOn 이동](./handson/[2023]%20DataEngineering%20Enchangement%20Document%20for%20HIST.md)
