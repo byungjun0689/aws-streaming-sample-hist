@@ -429,13 +429,10 @@ ORDER BY 5 desc
 
 
 
-<aside>
 💡 [QuickSight 실습](https://www.notion.so/QuickSight-2eabaa233df245aa98c5c2860d171d69?pvs=21) 에서 이론 부분만 확인 ( 실습은 다른 내용 )
 
 1. 아래 권한 및 2.데이터 세트 생성 까지는 개별적으로 수행할 필요 없이 강사만 진행
 2. 공통 데이터 셋으로 분석부터 수행
-
-</aside>
 
 ![Untitled](img/Untitled%2030.png)
 
@@ -452,11 +449,8 @@ ORDER BY 5 desc
 - 해당 되는 버킷 선택 후 저장
 
 ![Untitled](img/Untitled%2032.png)
-
 ![Untitled](img/Untitled%2033.png)
-
 ![Untitled](img/Untitled%2034.png)
-
 ![Untitled](img/Untitled%2035.png)
 
 ## 9.2 데이터 셋 생성
@@ -464,7 +458,6 @@ ORDER BY 5 desc
 - 데이터 세트 → 새 데이터 세트 → Athena 선택
     
     ![Untitled](img/Untitled%2036.png)
-    
     ![Untitled](img/Untitled%2037.png)
     
 - 데이터 원본 이름
@@ -480,7 +473,6 @@ ORDER BY 5 desc
     - 데이터 확인을 위해서는 데이터 편집/미리보기 선택하게 되면 확인이 가능함.
     
     ![Untitled](img/Untitled%2039.png)
-    
     ![Untitled](img/Untitled%2040.png)
     
 
@@ -524,9 +516,7 @@ ORDER BY 5 desc
 - 대시보드 게시
 
 ![Untitled](img/Untitled%2051.png)
-
 ![Untitled](img/Untitled%2052.png)
-
 ![Untitled](img/Untitled%2053.png)
 
 대시보드 공유를 통해 QuickSight 사용자 또는 URL 을 공유하여 많은 사용자들이 사용할 수 있도록 할 수 있다.
@@ -541,6 +531,9 @@ ORDER BY 5 desc
   ![Untitled](img/Untitled%2055.png)
 
 ## 10.1 Kinesis Data Analytics Studio 노트북 생성
+
+[`Download Notebook`](../python/df_flink_sql_example.zpln)   
+다운로드 후 Import Notebook으로 샘플 노트북을 사용할 수 있습니다. 
 
 AWS Management Console에서 Kinesis 서비스를 선택 [[Console](https://ap-northeast-2.console.aws.amazon.com/kinesisanalytics/home?region=ap-northeast-2#/list/applications)]
 
@@ -579,7 +572,7 @@ AWS Management Console에서 Kinesis 서비스를 선택 [[Console](https://ap-n
     
 9. 노트북 상태가 `[실행]` 될때 까지 대기
     
-    <aside>
+    
     💡 `Apache Zeppelin 이란?`
     데이터 중심의 기능을 지원하는 웹 베이스의 노트북
     SQL, Scala, Python, R 등의 다양한 언어와 함께 대화형 데이터 분석 및 현업 문서이다. 
@@ -589,7 +582,7 @@ AWS Management Console에서 Kinesis 서비스를 선택 [[Console](https://ap-n
     
     ![Untitled](img/Untitled%2062.png)
     
-    </aside>
+    
     
     ![Untitled](img/Untitled%2063.png)
     
@@ -846,7 +839,7 @@ CUMULATE(TABLE data, DESCRIPTOR(timecol), step, size)
 SELECT window_start, window_end, sum(mount) as sum_of_mount FROM 
 	TABLE(
     CUMULATE(
-      DATA => TABLE transaction_order_flink3,
+      DATA => TABLE transaction_order_flink,
       TIMECOL => DESCRIPTOR(tr_datetime),
       STEP => INTERVAL '1' HOURS,
       SIZE => INTERVAL '24' HOURS))
@@ -916,7 +909,7 @@ ROLL UP 함수를 사용하여 대분류 전체를 집계하는 SQL
 SELECT window_start, window_end, division_name, sum(mount) as sum_of_mount
 	FROM TABLE(
    TUMBLE(
-     DATA => TABLE transaction_order_flink3,
+     DATA => TABLE transaction_order_flink,
      TIMECOL => DESCRIPTOR(tr_datetime),
      SIZE => INTERVAL '1' HOURS))
   GROUP BY window_start, window_end, ROLLUP(division_name)
@@ -941,7 +934,7 @@ SELECT *
     FROM (
       SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt
       FROM TABLE(
-        TUMBLE(TABLE transaction_order_flink3, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))
+        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))
       GROUP BY window_start, window_end, division_name
     )
   ) WHERE rownum <= 3;
@@ -957,7 +950,7 @@ SELECT *
     FROM (
       SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt
       FROM TABLE(
-        TUMBLE(TABLE transaction_order_flink3, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))
+        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))
       GROUP BY window_start, window_end, division_name
       HAVING division_name not in ('담배')
     )
