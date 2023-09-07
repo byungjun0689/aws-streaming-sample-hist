@@ -1,0 +1,1824 @@
+﻿{
+  "paragraphs": [
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694060994592_1560054590",
+      "id": "paragraph_1694060994592_1560054590",
+      "dateCreated": "2023-09-07T04:29:54+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:336",
+      "text": "%md \n\n# Apache Flink 을 이용한 실시간 Streaming Hands-on",
+      "dateUpdated": "2023-09-07T04:30:17+0000",
+      "dateFinished": "2023-09-07T04:30:24+0000",
+      "dateStarted": "2023-09-07T04:30:17+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>Apache Flink 을 이용한 실시간 Streaming Hands-on</h1>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n# 실습 준비( 테이블 생성 및 설정)",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:51:21+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061163847_2125488142",
+      "id": "paragraph_1694061163847_2125488142",
+      "dateCreated": "2023-09-07T04:32:43+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:2270",
+      "dateFinished": "2023-09-07T04:51:21+0000",
+      "dateStarted": "2023-09-07T04:51:21+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>실습 준비( 테이블 생성 및 설정)</h1>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694060988139_920984485",
+      "id": "paragraph_1694060988139_920984485",
+      "dateCreated": "2023-09-07T04:29:48+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:168",
+      "text": "%flink.ssql\n\nCREATE TABLE transaction_order_flink(\n\ttr_date VARCHAR(10),\n\ttr_time VARCHAR(10),\n\tstore_cd VARCHAR(10),\n\tstore_name VARCHAR(10),\n\tpos_num VARCHAR(5),\n\treceipt_num VARCHAR(20),\n\tproduct_cd VARCHAR(30),\n\tqty INT,\n\tmount DOUBLE,\n\tdivision_cd VARCHAR(10),\n\tdivision_name VARCHAR(20),\n\tmaincategory_cd VARCHAR(10),\n\tmaincategory_name VARCHAR(20),\n\tsubcategory_cd VARCHAR(10),\n\tsubcategory_name VARCHAR(20),\n\tproduct_name VARCHAR(50),\n\tis_pb VARCHAR(5),\n\ttr_datetime TIMESTAMP(3),\n\tevent_time TIMESTAMP(3),\n  WATERMARK FOR tr_datetime AS tr_datetime - INTERVAL '5' SECOND)\nPARTITIONED BY (tr_date, tr_time)\nWITH (\n\t'connector' = 'kinesis',\n\t'stream' = 'de-enhancement-stream-blee',\n\t'aws.region' = 'ap-northeast-2',\n\t'scan.stream.initpos' = 'LATEST',\n\t'format' = 'json',\n\t'json.timestamp-format.standard' = 'ISO-8601'\n)",
+      "dateUpdated": "2023-09-07T04:30:37+0000",
+      "dateFinished": "2023-09-07T04:31:22+0000",
+      "dateStarted": "2023-09-07T04:30:37+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Table has been created.\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n\nCREATE TABLE transaction_order_flink_restart(\n\ttr_date VARCHAR(10),\n\ttr_time VARCHAR(10),\n\tstore_cd VARCHAR(10),\n\tstore_name VARCHAR(10),\n\tpos_num VARCHAR(5),\n\treceipt_num VARCHAR(20),\n\tproduct_cd VARCHAR(30),\n\tqty INT,\n\tmount DOUBLE,\n\tdivision_cd VARCHAR(10),\n\tdivision_name VARCHAR(20),\n\tmaincategory_cd VARCHAR(10),\n\tmaincategory_name VARCHAR(20),\n\tsubcategory_cd VARCHAR(10),\n\tsubcategory_name VARCHAR(20),\n\tproduct_name VARCHAR(50),\n\tis_pb VARCHAR(5),\n\ttr_datetime TIMESTAMP(3),\n\tevent_time TIMESTAMP(3),\n  WATERMARK FOR tr_datetime AS tr_datetime - INTERVAL '5' SECOND)\nPARTITIONED BY (tr_date, tr_time)\nWITH (\n\t'connector' = 'kinesis',\n\t'stream' = 'de-enhancement-stream-blee',\n\t'aws.region' = 'ap-northeast-2',\n\t'scan.stream.initpos' = 'TRIM_HORIZON',\n\t'format' = 'json',\n\t'json.timestamp-format.standard' = 'ISO-8601'\n)",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:31:24+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061037795_1134662572",
+      "id": "paragraph_1694061037795_1134662572",
+      "dateCreated": "2023-09-07T04:30:37+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:436",
+      "dateFinished": "2023-09-07T04:31:25+0000",
+      "dateStarted": "2023-09-07T04:31:24+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Table has been created.\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.pyflink\nst_env.get_config().get_configuration().set_string(\n    \"execution.checkpointing.mode\", \"EXACTLY_ONCE\"    \n)\n\nst_env.get_config().get_configuration().set_string(\n    \"execution.checkpointing.interval\", \"1min\"    \n)",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:51:25+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062283223_1258748860",
+      "id": "paragraph_1694062283223_1258748860",
+      "dateCreated": "2023-09-07T04:51:23+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:21714",
+      "dateFinished": "2023-09-07T04:51:29+0000",
+      "dateStarted": "2023-09-07T04:51:25+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "<pyflink.common.configuration.Configuration at 0x7fd0b4d9f730>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n# 실습\nFlink SQL을 이용하여 Stream 데이터를 읽고 해당 데이터를 처리하는 방법을 학습한다. ",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:32:08+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061101787_143399248",
+      "id": "paragraph_1694061101787_143399248",
+      "dateCreated": "2023-09-07T04:31:41+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:624",
+      "dateFinished": "2023-09-07T04:32:08+0000",
+      "dateStarted": "2023-09-07T04:32:08+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h1>실습</h1>\n<p>Flink SQL을 이용하여 Stream 데이터를 읽고 해당 데이터를 처리하는 방법을 학습한다.</p>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n## 실습 1\n실시간 Stream 데이터 확인",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:32:30+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061133776_1393431511",
+      "id": "paragraph_1694061133776_1393431511",
+      "dateCreated": "2023-09-07T04:32:13+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:711",
+      "dateFinished": "2023-09-07T04:32:31+0000",
+      "dateStarted": "2023-09-07T04:32:30+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 1</h2>\n<p>실시간 Stream 데이터 확인</p>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=update)\n\nSELECT * FROM transaction_order_flink;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:33:19+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {},
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/758ced13b2ffbe5cd7891a8b532ea2f5",
+              "$$hashKey": "object:7544"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061084318_2118836995",
+      "id": "paragraph_1694061084318_2118836995",
+      "dateCreated": "2023-09-07T04:31:24+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:530",
+      "dateFinished": "2023-09-07T04:33:21+0000",
+      "dateStarted": "2023-09-07T04:32:35+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "tr_date\ttr_time\tstore_cd\tstore_name\tpos_num\treceipt_num\tproduct_cd\tqty\tmount\tdivision_cd\tdivision_name\tmaincategory_cd\tmaincategory_name\tsubcategory_cd\tsubcategory_name\tproduct_name\tis_pb\ttr_datetime\tevent_time\n2015-01-02\t20\t12345\t등촌점\t1\t8325\t8802609028247\t1\t1000.0\t42\t생활잡화\t62\t전기연료\t187\t라이타\tIC)터보라이터\tN\t2015-01-02 20:45:22.000\t2023-09-07 04:33:10.472585\n2015-01-02\t20\t12345\t등촌점\t1\t5280\t8801115139560\t2\t3800.0\t31\t음료\t42\t커피음료\t123\t냉장커피\t스페셜티마일드250ml\tN\t2015-01-02 20:47:53.000\t2023-09-07 04:33:10.579727\n2015-01-02\t20\t12345\t등촌점\t1\t5483\t2200000079961\t10\t15000.0\t42\t생활잡화\t60\t홈/주방용품\t174\t쓰레기봉투\t*종량(가정)50L\tN\t2015-01-02 20:52:52.000\t2023-09-07 04:33:10.704651\n2015-01-02\t20\t12345\t등촌점\t1\t7107\t2200000079961\t5\t7500.0\t42\t생활잡화\t60\t홈/주방용품\t174\t쓰레기봉투\t*종량(가정)50L\tN\t2015-01-02 20:55:21.000\t2023-09-07 04:33:10.850044\n2015-01-02\t21\t12345\t등촌점\t1\t3250\t8801043015226\t2\t1800.0\t22\t가공식사제품\t32\t면류\t94\t봉지면\t짜파게티\tN\t2015-01-02 21:02:08.000\t2023-09-07 04:33:11.055292\n2015-01-02\t20\t12345\t등촌점\t1\t9340\t8801117268206\t1\t1200.0\t12\t과자류\t16\t스낵류\t42\t일반스낵\t왕고래밥스낵\tN\t2015-01-02 20:55:56.000\t2023-09-07 04:33:10.937308\n2015-01-02\t21\t12345\t등촌점\t1\t611\t69014451\t2\t1400.0\t12\t과자류\t20\t캔디\t54\t기능성캔디\t폴로캔디\tN\t2015-01-02 21:02:08.000\t2023-09-07 04:33:11.179857\n2015-01-02\t21\t12345\t등촌점\t1\t2235\t8806016310018\t1\t800.0\t23\t의약건강기능\t36\t의약외품\t108\t의약외품음료\t부채표까스활\tN\t2015-01-02 21:06:32.000\t2023-09-07 04:33:11.373631\n2015-01-02\t21\t12345\t등촌점\t1\t408\t8809136850815\t1\t900.0\t21\t식재료\t28\t축수산식재료\t78\t치즈, 버터, 마아가린\t제니코)라면쏘옥치즈\tN\t2015-01-02 21:05:14.000\t2023-09-07 04:33:11.308381\n2015-01-02\t21\t12345\t등촌점\t1\t1829\t88014128\t1\t2500.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐파인컷1mg\tN\t2015-01-02 21:08:12.000\t2023-09-07 04:33:11.531596\n2015-01-02\t21\t12345\t등촌점\t1\t814\t4902210222301\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS3mg\tN\t2015-01-02 21:07:42.000\t2023-09-07 04:33:11.44485\n2015-01-02\t21\t12345\t등촌점\t1\t4874\t88013121\t1\t4700.0\t45\t담배\t72\t담배\t220\t외산담배\t팔리아멘트아쿠아5mg\tN\t2015-01-02 21:10:28.000\t2023-09-07 04:33:11.645946\n2015-01-02\t21\t12345\t등촌점\t1\t1626\t8801123308910\t1\t3300.0\t14\t안주류\t23\t육가공류\t69\t핫바\t의성마늘프랑크2입\tN\t2015-01-02 21:10:36.000\t2023-09-07 04:33:11.726456\n2015-01-02\t21\t12345\t등촌점\t1\t2235\t8801115134237\t1\t900.0\t31\t음료\t47\t우유\t130\t가공유\t초코우유200ml\tN\t2015-01-02 21:11:10.000\t2023-09-07 04:33:11.78117\n2015-01-02\t21\t12345\t등촌점\t1\t2032\t8801121190197\t1\t1000.0\t31\t음료\t47\t우유\t130\t가공유\t허쉬쵸코드링크\tN\t2015-01-02 21:11:17.000\t2023-09-07 04:33:11.907376\n2015-01-02\t21\t12345\t등촌점\t1\t2\t8801068090192\t1\t1200.0\t11\t빵/떡/디저트\t12\t빵\t33\tNB빵\t카톡빵시나몬롤\tN\t2015-01-02 21:13:27.000\t2023-09-07 04:33:11.987805\n2015-01-02\t21\t12345\t등촌점\t1\t1626\t8801045572802\t1\t1100.0\t22\t가공식사제품\t32\t면류\t95\t용기면\t치즈볶이컵\tN\t2015-01-02 21:14:23.000\t2023-09-07 04:33:12.130735\n2015-01-02\t21\t12345\t등촌점\t1\t3859\t88017075\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐라이트6mg\tN\t2015-01-02 21:15:26.000\t2023-09-07 04:33:12.268275\n2015-01-02\t21\t12345\t등촌점\t1\t4468\t4902210222301\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS3mg\tN\t2015-01-02 21:20:26.000\t2023-09-07 04:33:12.528298\n2015-01-02\t21\t12345\t등촌점\t1\t1829\t88018423\t1\t1500.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐쿨원\tN\t2015-01-02 21:15:42.000\t2023-09-07 04:33:12.37739\n2015-01-02\t21\t12345\t등촌점\t1\t2235\t8801382142690\t1\t1300.0\t31\t음료\t40\t기능건강음료\t114\t건강음료\t꿀헛개병\tN\t2015-01-02 21:17:54.000\t2023-09-07 04:33:12.460633\n2015-01-02\t21\t12345\t등촌점\t1\t3047\t4033100053801\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스옵션2 6mg\tN\t2015-01-02 21:24:32.000\t2023-09-07 04:33:12.573797\n2015-01-02\t21\t12345\t등촌점\t1\t408\t8801056610012\t1\t800.0\t31\t음료\t44\t탄산음료\t125\t일반탄산음료\t펩시콜라캔250ml\tN\t2015-01-02 21:26:02.000\t2023-09-07 04:33:12.762403\n2015-01-02\t21\t12345\t등촌점\t1\t3453\t8809086626270\t1\t3000.0\t42\t생활잡화\t62\t전기연료\t184\t건전지\t벡셀2A4입\tN\t2015-01-02 21:25:46.000\t2023-09-07 04:33:12.654116\n2015-01-02\t21\t12345\t등촌점\t1\t4671\t8801104123280\t3\t2700.0\t13\t아이스크림\t21\t일반아이스크림\t58\t바\t메로나\tN\t2015-01-02 21:26:04.000\t2023-09-07 04:33:12.987577\n2015-01-02\t21\t12345\t등촌점\t1\t3656\t8801094503000\t3\t3000.0\t31\t음료\t42\t커피음료\t122\t캔/병커피\t조지아오리지널캔\tN\t2015-01-02 21:26:03.000\t2023-09-07 04:33:12.885095\n2015-01-02\t21\t12345\t등촌점\t1\t1626\t8801242039085\t1\t2500.0\t21\t식재료\t28\t축수산식재료\t80\t오뎅,유부\tCJ)얼큰오뎅한그릇\tN\t2015-01-02 21:30:17.000\t2023-09-07 04:33:13.127014\n2015-01-02\t21\t12345\t등촌점\t1\t2235\t49400762\t1\t2500.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스스카이블루팩\tN\t2015-01-02 21:31:33.000\t2023-09-07 04:33:13.191632\n2015-01-02\t21\t12345\t등촌점\t1\t408\t8801117770204\t1\t1500.0\t12\t과자류\t16\t스낵류\t43\t감자스낵\t스윙칩고추장맛50g\tN\t2015-01-02 21:35:04.000\t2023-09-07 04:33:13.244221\n2015-01-02\t21\t12345\t등촌점\t1\t4265\t8801284260133\t1\t3500.0\t22\t가공식사제품\t34\t냉동즉석식\t105\t냉동밥\t천일낙지철판볶음밥\tN\t2015-01-02 21:35:55.000\t2023-09-07 04:33:13.32747\n2015-01-02\t21\t12345\t등촌점\t1\t3250\t8801043014809\t2\t1560.0\t22\t가공식사제품\t32\t면류\t94\t봉지면\t신라면\tN\t2015-01-02 21:37:30.000\t2023-09-07 04:33:13.434329\n2015-01-02\t21\t12345\t등촌점\t1\t4874\t88017075\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐라이트6mg\tN\t2015-01-02 21:38:20.000\t2023-09-07 04:33:13.558506\n2015-01-02\t21\t12345\t등촌점\t1\t1220\t8801062606290\t3\t3600.0\t12\t과자류\t17\t시리얼\t46\t시리얼바\t헬스원파워에너지바\tN\t2015-01-02 21:42:54.000\t2023-09-07 04:33:13.663093\n2015-01-02\t21\t12345\t등촌점\t1\t2438\t8801062331673\t1\t700.0\t12\t과자류\t20\t캔디\t54\t기능성캔디\t목캔디허브\tN\t2015-01-02 21:44:47.000\t2023-09-07 04:33:13.769862\n2015-01-02\t21\t12345\t등촌점\t1\t1626\t8801073210363\t1\t1400.0\t22\t가공식사제품\t32\t면류\t95\t용기면\t불닭볶음면컵\tN\t2015-01-02 21:45:20.000\t2023-09-07 04:33:13.83251\n2015-01-02\t21\t12345\t등촌점\t1\t1017\t8801121103661\t3\t4500.0\t31\t음료\t47\t우유\t130\t가공유\t우유속코코아\tN\t2015-01-02 21:50:16.000\t2023-09-07 04:33:13.889242\n2015-01-02\t21\t12345\t등촌점\t1\t1423\t88017211\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐밸런스3mg\tN\t2015-01-02 21:51:05.000\t2023-09-07 04:33:14.045226\n2015-01-02\t21\t12345\t등촌점\t1\t4671\t8809194272703\t7\t70000.0\t44\t유가증권\t70\t상품권\t215\t상품권\t*문화만원상품권\tN\t2015-01-02 21:51:25.000\t2023-09-07 04:33:14.128969\n2015-01-02\t21\t12345\t등촌점\t1\t2641\t4902210234502\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS그린1mg\tN\t2015-01-02 21:51:32.000\t2023-09-07 04:33:14.24366\n2015-01-02\t21\t12345\t등촌점\t1\t4265\t4902806214284\t1\t3500.0\t41\t신변잡화\t59\t액세서리\t167\t미용소품\t갸스비기름종이\tN\t2015-01-02 21:52:05.000\t2023-09-07 04:33:14.337211\n2015-01-02\t21\t12345\t등촌점\t1\t4671\t8801104123198\t3\t2700.0\t13\t아이스크림\t21\t일반아이스크림\t58\t바\t쿠앤크바\tN\t2015-01-02 21:52:08.000\t2023-09-07 04:33:14.388078\n2015-01-02\t21\t12345\t등촌점\t1\t1626\t8801056009274\t1\t1700.0\t31\t음료\t39\t과일야채음료\t112\t과즙음료\t제주감귤P500ml\tN\t2015-01-02 21:52:57.000\t2023-09-07 04:33:14.482259\n2015-01-02\t21\t12345\t등촌점\t1\t4062\t4902210213606\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스스카이블루곽\tN\t2015-01-02 21:54:00.000\t2023-09-07 04:33:14.702635\n2015-01-02\t21\t12345\t등촌점\t1\t408\t8803560011323\t1\t2800.0\t22\t가공식사제품\t35\t냉장즉석식\t107\t냉장간편식\t송학)바로즉석떡볶이\tN\t2015-01-02 21:53:33.000\t2023-09-07 04:33:14.630784\n2015-01-02\t21\t12345\t등촌점\t1\t3047\t8801056201012\t1\t2700.0\t31\t음료\t44\t탄산음료\t125\t일반탄산음료\t밀키스P1.5L\tN\t2015-01-02 21:59:48.000\t2023-09-07 04:33:14.839821\n2015-01-02\t21\t12345\t등촌점\t1\t1017\t8801121759943\t2\t2000.0\t31\t음료\t47\t우유\t130\t가공유\t허쉬쵸코쿠키앤크림\tN\t2015-01-02 21:56:49.000\t2023-09-07 04:33:14.79301\n2015-01-02\t22\t12345\t등촌점\t1\t9289\t8801123203918\t1\t1400.0\t14\t안주류\t23\t육가공류\t68\t햄,소시지\t키스틱70g\tN\t2015-01-02 22:00:29.000\t2023-09-07 04:33:14.961688\n2015-01-02\t22\t12345\t등촌점\t1\t3808\t8801007171210\t2\t4000.0\t31\t음료\t43\t차음료\t124\t차음료\t컨디션헛개수P500ml\tY\t2015-01-02 22:03:17.000\t2023-09-07 04:33:15.075254\n2015-01-02\t22\t12345\t등촌점\t1\t4214\t6903218954353\t1\t5000.0\t42\t생활잡화\t62\t전기연료\t185\t전기소품\tGE2관형광등\tN\t2015-01-02 22:03:19.000\t2023-09-07 04:33:15.219584\n2015-01-02\t22\t12345\t등촌점\t1\t7462\t88017235\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐프로스트1mg\tN\t2015-01-02 22:05:16.000\t2023-09-07 04:33:15.292174\n2015-01-02\t22\t12345\t등촌점\t1\t6853\t8809020404254\t1\t27000.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐라이트6mg보루\tN\t2015-01-02 22:06:09.000\t2023-09-07 04:33:15.432007\n2015-01-02\t22\t12345\t등촌점\t1\t3808\t8801048951000\t1\t1400.0\t33\t주류\t50\t소주\t136\t일반소주\t참이슬병360ml\tN\t2015-01-02 22:07:01.000\t2023-09-07 04:33:15.49156\n2015-01-02\t22\t12345\t등촌점\t1\t8883\t8806016310018\t1\t800.0\t23\t의약건강기능\t36\t의약외품\t108\t의약외품음료\t부채표까스활\tN\t2015-01-02 22:07:10.000\t2023-09-07 04:33:15.550103\n2015-01-02\t22\t12345\t등촌점\t1\t4417\t8801043026307\t1\t1300.0\t12\t과자류\t16\t스낵류\t42\t일반스낵\t바나나킥1300\tN\t2015-01-02 22:07:40.000\t2023-09-07 04:33:15.62337\n2015-01-02\t22\t12345\t등촌점\t1\t8680\t8801062273294\t1\t3000.0\t12\t과자류\t15\t비스켓/쿠키\t40\t파이\t몽쉘크림케이크6입\tY\t2015-01-02 22:07:41.000\t2023-09-07 04:33:15.695115\n2015-01-02\t22\t12345\t등촌점\t1\t4823\t8803651000045\t1\t400.0\t42\t생활잡화\t62\t전기연료\t187\t라이타\t일회용라이터\tN\t2015-01-02 22:08:00.000\t2023-09-07 04:33:15.833338\n2015-01-02\t22\t12345\t등촌점\t1\t6244\t49400762\t1\t2500.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스스카이블루팩\tN\t2015-01-02 22:09:04.000\t2023-09-07 04:33:15.948533\n2015-01-02\t22\t12345\t등촌점\t1\t7868\t8801030370017\t1\t2150.0\t33\t주류\t51\t전통주\t137\t청주,약주\t롯데)청하300ml\tN\t2015-01-02 22:09:57.000\t2023-09-07 04:33:16.023272\n2015-01-02\t22\t12345\t등촌점\t1\t7665\t3262151001757\t1\t39000.0\t33\t주류\t53\t와인\t141\t와인\t무똥까데레드\tN\t2015-01-02 22:10:19.000\t2023-09-07 04:33:16.16435\n2015-01-02\t22\t12345\t등촌점\t1\t4823\t4902210222301\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS3mg\tN\t2015-01-02 22:11:13.000\t2023-09-07 04:33:16.270805\n2015-01-02\t22\t12345\t등촌점\t1\t8274\t8809229011109\t1\t39000.0\t33\t주류\t53\t와인\t141\t와인\t몬테스알파까버네\tN\t2015-01-02 22:11:24.000\t2023-09-07 04:33:16.463426\n2015-01-02\t22\t12345\t등촌점\t1\t4011\t8809196610497\t1\t800.0\t1\t간편식사\t2\t주먹밥\t4\t삼각김밥\t매콤불고기삼각김밥1\tN\t2015-01-02 22:11:52.000\t2023-09-07 04:33:16.576975\n2015-01-02\t22\t12345\t등촌점\t1\t9492\t2200000079923\t1\t150.0\t42\t생활잡화\t60\t홈/주방용품\t174\t쓰레기봉투\t*종량(가정)5L\tN\t2015-01-02 22:12:44.000\t2023-09-07 04:33:16.661556\n2015-01-02\t22\t12345\t등촌점\t1\t4417\t8801117761004\t1\t3000.0\t12\t과자류\t16\t스낵류\t42\t일반스낵\t오징어땅콩202g\tN\t2015-01-02 22:13:46.000\t2023-09-07 04:33:16.749218\n2015-01-02\t22\t12345\t등촌점\t1\t9492\t8801056192013\t1\t1900.0\t31\t음료\t44\t탄산음료\t125\t일반탄산음료\t칠성사이다P500ml\tN\t2015-01-02 22:14:17.000\t2023-09-07 04:33:16.798483\n2015-01-02\t22\t12345\t등촌점\t1\t3808\t8801043026567\t1\t1100.0\t12\t과자류\t16\t스낵류\t42\t일반스낵\t새우깡1100\tN\t2015-01-02 22:14:47.000\t2023-09-07 04:33:16.850031\n2015-01-02\t22\t12345\t등촌점\t1\t6041\t4902210222301\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS3mg\tN\t2015-01-02 22:15:05.000\t2023-09-07 04:33:16.904111\n2015-01-02\t22\t12345\t등촌점\t1\t4417\t8801121756522\t1\t2100.0\t31\t음료\t47\t우유\t131\t흰우유\t*PB)CU흰우유1L\tN\t2015-01-02 22:16:52.000\t2023-09-07 04:33:17.00399\n2015-01-02\t22\t12345\t등촌점\t1\t7259\t4902210234502\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스LSS그린1mg\tN\t2015-01-02 22:19:28.000\t2023-09-07 04:33:17.125216\n2015-01-02\t22\t12345\t등촌점\t1\t8680\t8801048951000\t3\t4200.0\t33\t주류\t50\t소주\t136\t일반소주\t참이슬병360ml\tN\t2015-01-02 22:18:44.000\t2023-09-07 04:33:17.07894\n2015-01-02\t22\t12345\t등촌점\t1\t6650\t88004259\t2\t3100.0\t33\t주류\t49\t맥주\t134\t국산맥주\t카프리병330ml\tN\t2015-01-02 22:22:34.000\t2023-09-07 04:33:17.173769\n2015-01-02\t22\t12345\t등촌점\t1\t6244\t8801223100278\t1\t2300.0\t31\t음료\t44\t탄산음료\t125\t일반탄산음료\t맥콜P1.5L\tN\t2015-01-02 22:24:28.000\t2023-09-07 04:33:17.265387\n2015-01-02\t22\t12345\t등촌점\t1\t9289\t49400762\t1\t2500.0\t45\t담배\t72\t담배\t220\t외산담배\t메비우스스카이블루팩\tN\t2015-01-02 22:24:32.000\t2023-09-07 04:33:17.389405\n2015-01-02\t22\t12345\t등촌점\t1\t8071\t8809027553351\t1\t1500.0\t12\t과자류\t16\t스낵류\t44\t전용스낵\t카라멜치즈볼팝콘\tN\t2015-01-02 22:24:56.000\t2023-09-07 04:33:17.459435\n2015-01-02\t22\t12345\t등촌점\t1\t3808\t8801308426729\t1\t4600.0\t14\t안주류\t22\t마른안주류\t65\t수산안주\t실속버터오징어\tN\t2015-01-02 22:25:36.000\t2023-09-07 04:33:17.593393\n2015-01-02\t22\t12345\t등촌점\t1\t6447\t8805077087310\t1\t7000.0\t41\t신변잡화\t58\t의류용품\t161\t스타킹\t엘르9부레깅스검정\tN\t2015-01-02 22:26:05.000\t2023-09-07 04:33:17.706169\n2015-01-02\t22\t12345\t등촌점\t1\t8680\t8801121763605\t1\t2400.0\t31\t음료\t47\t우유\t130\t가공유\tPB)CU커피우유1L\tN\t2015-01-02 22:27:49.000\t2023-09-07 04:33:17.805002\n2015-01-02\t22\t12345\t등촌점\t1\t9695\t8803651000045\t1\t400.0\t42\t생활잡화\t62\t전기연료\t187\t라이타\t일회용라이터\tN\t2015-01-02 22:29:21.000\t2023-09-07 04:33:17.873053\n2015-01-02\t22\t12345\t등촌점\t1\t4011\t8801128505895\t1\t1300.0\t22\t가공식사제품\t32\t면류\t95\t용기면\t일품짜장컵\tN\t2015-01-02 22:29:41.000\t2023-09-07 04:33:17.92097\n2015-01-02\t22\t12345\t등촌점\t1\t8071\t8809214203298\t1\t350.0\t21\t식재료\t28\t축수산식재료\t82\t축산물\t*세양)라면친구계란\tN\t2015-01-02 22:32:59.000\t2023-09-07 04:33:18.128323\n2015-01-02\t22\t12345\t등촌점\t1\t9289\t8801056143015\t1\t1300.0\t31\t음료\t44\t탄산음료\t125\t일반탄산음료\t칠성사이다캔250ml\tN\t2015-01-02 22:31:20.000\t2023-09-07 04:33:18.015397\n2015-01-02\t22\t12345\t등촌점\t1\t9695\t88017099\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐1mg\tN\t2015-01-02 22:31:36.000\t2023-09-07 04:33:18.081888\n2015-01-02\t22\t12345\t등촌점\t1\t5229\t8809383950146\t1\t800.0\t1\t간편식사\t2\t주먹밥\t4\t삼각김밥\t뉴전주비빔1\tN\t2015-01-02 22:33:01.000\t2023-09-07 04:33:18.216131\n2015-01-02\t22\t12345\t등촌점\t1\t5432\t8809232731407\t1\t1400.0\t1\t간편식사\t5\t햄버거류\t9\t햄버거\t햄)치즈버거\tN\t2015-01-02 22:35:32.000\t2023-09-07 04:33:18.361654\n2015-01-02\t22\t12345\t등촌점\t1\t7056\t88017075\t1\t2700.0\t45\t담배\t72\t담배\t220\t외산담배\t던힐라이트6mg\tN\t2015-01-02 22:36:02.000\t2023-09-07 04:33:18.415323\n2015-01-02\t22\t12345\t등촌점\t1\t8477\t8801068086010\t1\t900.0\t11\t빵/떡/디저트\t12\t빵\t33\tNB빵\t주종단팥슈크림\tN\t2015-01-02 22:37:16.000\t2023-09-07 04:33:18.502338\n2015-01-02\t22\t12345\t등촌점\t1\t9086\t8801048951000\t1\t1400.0\t33\t주류\t50\t소주\t136\t일반소주\t참이슬병360ml\tN\t2015-01-02 22:37:28.000\t2023-09-07 04:33:18.689258\n2015-01-02\t22\t12345\t등촌점\t1\t6244\t8801094523206\t1\t1100.0\t31\t음료\t42\t커피음료\t122\t캔/병커피\t조지아맥스캔\tY\t2015-01-02 22:37:55.000\t2023-09-07 04:33:18.754333\n2015-01-02\t22\t12345\t등촌점\t1\t3808\t8809021920906\t3\t3000.0\t21\t식재료\t26\t과일/채소\t72\t과일\t*팜스)세척사과\tN\t2015-01-02 22:40:12.000\t2023-09-07 04:33:18.861093\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT * FROM transaction_order_flink\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 758ced13b2ffbe5cd7891a8b532ea2f5)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 758ced13b2ffbe5cd7891a8b532ea2f5)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n## 실습 2\n- 대분류를 기준으로 매출과 구매 건수 조회\n- 시각화\n- 단 정렬은 지원되지 않는다. (Realtime) → 에러 발생\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:33:16+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061179633_1426200874",
+      "id": "paragraph_1694061179633_1426200874",
+      "dateCreated": "2023-09-07T04:32:59+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:3235",
+      "dateFinished": "2023-09-07T04:33:16+0000",
+      "dateStarted": "2023-09-07T04:33:16+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 2</h2>\n<ul>\n<li>대분류를 기준으로 매출과 구매 건수 조회</li>\n<li>시각화</li>\n<li>단 정렬은 지원되지 않는다. (Realtime) → 에러 발생</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=update)\n\nSELECT division_name, count(*) as cnt_of_sales , sum(mount) as sum_of_sales \nfrom transaction_order_flink\ngroup by division_name;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:44:58+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 619.688,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {
+                    "columns": [
+                      {
+                        "name": "division_name0",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "cnt_of_sales1",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      },
+                      {
+                        "name": "sum_of_sales2",
+                        "visible": true,
+                        "width": "*",
+                        "sort": {},
+                        "filters": [
+                          {}
+                        ],
+                        "pinned": ""
+                      }
+                    ],
+                    "scrollFocus": {},
+                    "selection": [],
+                    "grouping": {
+                      "grouping": [],
+                      "aggregations": [],
+                      "rowExpandedStates": {}
+                    },
+                    "treeView": {},
+                    "pagination": {
+                      "paginationCurrentPage": 1,
+                      "paginationPageSize": 250
+                    }
+                  },
+                  "tableColumnTypeState": {
+                    "names": {
+                      "division_name": "string",
+                      "cnt_of_sales": "string",
+                      "sum_of_sales": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 87.9545,
+              "optionOpen": false
+            }
+          },
+          "2": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/7f91a7e770e77d5b82c91f649ed381d6",
+              "$$hashKey": "object:20259"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061155423_1383539598",
+      "id": "paragraph_1694061155423_1383539598",
+      "dateCreated": "2023-09-07T04:32:35+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:798",
+      "dateFinished": "2023-09-07T04:45:55+0000",
+      "dateStarted": "2023-09-07T04:44:37+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "division_name\tcnt_of_sales\tsum_of_sales\n가공식사제품\t56\t88450.0\n간편식사\t54\t90000.0\n과자류\t86\t112000.0\n담배\t104\t390300.0\n빵/떡/디저트\t16\t18500.0\n생활잡화\t16\t65470.0\n서비스상품\t1\t1500.0\n식재료\t10\t23900.0\n신변잡화\t10\t31100.0\n아이스크림\t4\t23400.0\n안주류\t14\t38100.0\n유가증권\t4\t41000.0\n음료\t135\t265200.0\n의약건강기능\t8\t14100.0\n주류\t21\t101700.0\n취미/레저\t2\t12500.0\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT division_name, count(*) as cnt_of_sales , sum(mount) as sum_of_sales \nfrom transaction_order_flink\ngroup by division_name\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 7f91a7e770e77d5b82c91f649ed381d6)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 7f91a7e770e77d5b82c91f649ed381d6)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=update)\n\nSELECT division_name, count(*) as cnt_of_sales , sum(mount) as sum_of_sales \nfrom transaction_order_flink\ngroup by division_name;\n\n/*\nSELECT division_name, count(*) as cnt_of_sales , sum(mount) as sum_of_sales \nfrom transaction_order_flink_restart\ngroup by division_name;\n*/\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:44:34+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "pieChart",
+              "height": 533.565,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "division_name": "string",
+                      "cnt_of_sales": "string",
+                      "sum_of_sales": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "pieChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "division_name",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cnt_of_sales",
+                  "index": 1,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/bb83b03ad47998dcd9ebcdd720ef7648",
+              "$$hashKey": "object:18686"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061206249_683401867",
+      "id": "paragraph_1694061206249_683401867",
+      "dateCreated": "2023-09-07T04:33:26+0000",
+      "status": "ERROR",
+      "focus": true,
+      "$$hashKey": "object:7551",
+      "dateFinished": "2023-09-07T04:45:28+0000",
+      "dateStarted": "2023-09-07T04:44:34+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "division_name\tcnt_of_sales\tsum_of_sales\n가공식사제품\t44\t75420.0\n간편식사\t26\t41300.0\n과자류\t49\t67400.0\n담배\t63\t215600.0\n빵/떡/디저트\t9\t12100.0\n생활잡화\t17\t38070.0\n식재료\t9\t16600.0\n신변잡화\t5\t17700.0\n아이스크림\t4\t12600.0\n안주류\t11\t29900.0\n유가증권\t2\t5000.0\n음료\t86\t170250.0\n의약건강기능\t5\t9300.0\n주류\t17\t89100.0\n취미/레저\t1\t9000.0\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT division_name, count(*) as cnt_of_sales , sum(mount) as sum_of_sales \nfrom transaction_order_flink\ngroup by division_name\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>RuntimeException: Retries exceeded for getRecords operation - all 3 retry attempts failed.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: bb83b03ad47998dcd9ebcdd720ef7648)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: bb83b03ad47998dcd9ebcdd720ef7648)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobExecutionException: Job execution failed.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:144)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\nCaused by: org.apache.flink.runtime.JobException: Recovery is suppressed by NoRestartBackoffTimeStrategy\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.handleFailure(ExecutionFailureHandler.java:138)\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.getFailureHandlingResult(ExecutionFailureHandler.java:82)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.handleTaskFailure(DefaultScheduler.java:309)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.maybeHandleTaskFailure(DefaultScheduler.java:299)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.updateTaskExecutionStateInternal(DefaultScheduler.java:290)\n\tat org.apache.flink.runtime.scheduler.SchedulerBase.updateTaskExecutionState(SchedulerBase.java:788)\n\tat org.apache.flink.runtime.scheduler.SchedulerNG.updateTaskExecutionState(SchedulerNG.java:79)\n\tat org.apache.flink.runtime.jobmaster.JobMaster.updateTaskExecutionState(JobMaster.java:452)\n\tat jdk.internal.reflect.GeneratedMethodAccessor116.invoke(Unknown Source)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.lambda$handleRpcInvocation$1(AkkaRpcActor.java:304)\n\tat org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader(ClassLoadingUtils.java:83)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcInvocation(AkkaRpcActor.java:302)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcMessage(AkkaRpcActor.java:217)\n\tat org.apache.flink.runtime.rpc.akka.FencedAkkaRpcActor.handleRpcMessage(FencedAkkaRpcActor.java:78)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleMessage(AkkaRpcActor.java:163)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:24)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:20)\n\tat scala.PartialFunction.applyOrElse(PartialFunction.scala:123)\n\tat scala.PartialFunction.applyOrElse$(PartialFunction.scala:122)\n\tat akka.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:20)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat akka.actor.Actor.aroundReceive(Actor.scala:537)\n\tat akka.actor.Actor.aroundReceive$(Actor.scala:535)\n\tat akka.actor.AbstractActor.aroundReceive(AbstractActor.scala:220)\n\tat akka.actor.ActorCell.receiveMessage(ActorCell.scala:580)\n\tat akka.actor.ActorCell.invoke(ActorCell.scala:548)\n\tat akka.dispatch.Mailbox.processMailbox(Mailbox.scala:270)\n\tat akka.dispatch.Mailbox.run(Mailbox.scala:231)\n\tat akka.dispatch.Mailbox.exec(Mailbox.scala:243)\n\tat java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)\n\tat java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)\n\tat java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)\n\tat java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)\n\tat java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)\nCaused by: java.lang.RuntimeException: Retries exceeded for getRecords operation - all 3 retry attempts failed.\n\tat org.apache.flink.streaming.connectors.kinesis.proxy.KinesisProxy.getRecords(KinesisProxy.java:320)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.getRecords(PollingRecordPublisher.java:168)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.run(PollingRecordPublisher.java:113)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.run(PollingRecordPublisher.java:102)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.ShardConsumer.run(ShardConsumer.java:114)\n\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n## 실습 3 \n- `tr_datetime` 컬럼을 기준으로 1시간 마다 Window(창)을 만들어 Groupby 한 결과를 Return 하는 SQL \n- 대, 중분류 별로 매출합계를 GroupBy 하여 결과를 출력\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:38:14+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061458917_2089071777",
+      "id": "paragraph_1694061458917_2089071777",
+      "dateCreated": "2023-09-07T04:37:38+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:10802",
+      "dateFinished": "2023-09-07T04:38:14+0000",
+      "dateStarted": "2023-09-07T04:38:14+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 3</h2>\n<ul>\n<li><code>tr_datetime</code> 컬럼을 기준으로 1시간 마다 Window(창)을 만들어 Groupby 한 결과를 Return 하는 SQL</li>\n<li>대, 중분류 별로 매출합계를 GroupBy 하여 결과를 출력</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=update)\n\nSELECT window_start, window_end, division_name,maincategory_name, sum(mount) as sum_of_mount \nFROM TABLE(\n   TUMBLE(\n     DATA => TABLE transaction_order_flink,\n     TIMECOL => DESCRIPTOR(tr_datetime),\n     SIZE => INTERVAL '1' HOURS))\n\tGROUP BY window_start, window_end, division_name, maincategory_name;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:45:43+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "window_start": "string",
+                      "window_end": "string",
+                      "division_name": "string",
+                      "maincategory_name": "string",
+                      "sum_of_mount": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/f66b0121e0e951a5a3c8b9ca4dbc2574",
+              "$$hashKey": "object:20288"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061218314_2015970525",
+      "id": "paragraph_1694061218314_2015970525",
+      "dateCreated": "2023-09-07T04:33:38+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:8228",
+      "dateFinished": "2023-09-07T04:45:55+0000",
+      "dateStarted": "2023-09-07T04:44:41+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "window_start\twindow_end\tdivision_name\tmaincategory_name\tsum_of_mount\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t과자류\t초콜릿\t3000.0\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t음료\t탄산음료\t2200.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t담배\t담배\t22300.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t간편식사\t햄버거류\t2000.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t안주류\t육가공류\t3900.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t음료\t커피음료\t1900.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t가공식사제품\t면류\t7790.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t음료\t우유\t1000.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t생활잡화\t홈/주방용품\t270.0\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t음료\t탄산음료\t3400.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t과자류\t스낵류\t5600.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t담배\t담배\t18300.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t의약건강기능\t안전상비의약품\t2500.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t간편식사\t햄버거류\t1200.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t주류\t맥주\t7400.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t생활잡화\t전기연료\t1400.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t음료\t커피음료\t6100.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t가공식사제품\t면류\t7100.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t음료\t탄산음료\t4100.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t음료\t기능건강음료\t5800.0\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t식재료\t농산식재료\t1300.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t담배\t담배\t21200.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t요구르트\t1800.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t빵/떡/디저트\t빵\t3600.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t과일야채음료\t1950.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t주류\t전통주\t7400.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t과자류\t스낵류\t3700.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t안주류\t육가공류\t3800.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t과자류\t캔디\t1000.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t안주류\t마른안주류\t4500.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t주류\t소주\t1400.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t의약건강기능\t안전상비의약품\t2300.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t과자류\t비스켓/쿠키\t7500.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t커피음료\t2900.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t생활잡화\t문구류\t2000.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t생수\t3750.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t취미/레저\t파티/오락용품\t3500.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t주류\t맥주\t10750.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t과자류\t시리얼\t2400.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t생활잡화\t전기연료\t5000.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t탄산음료\t3500.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t음료\t기능건강음료\t12250.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t가공식사제품\t면류\t5750.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t간편식사\t샌드위치류\t1900.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t가공식사제품\t상온즉석식\t3500.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t간편식사\t주먹밥\t3400.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t간편식사\t도시락\t5800.0\n2015-01-01 22:00:00.000\t2015-01-01 23:00:00.000\t간편식사\t김밥\t1500.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t과자류\t스낵류\t10900.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t담배\t담배\t15300.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t의약건강기능\t안전상비의약품\t2300.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t신변잡화\t화장품\t3700.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t과자류\t캔디\t800.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t가공식사제품\t면류\t2100.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t주류\t맥주\t11800.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t간편식사\t햄버거류\t3800.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t음료\t생수\t2000.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t생활잡화\t문구류\t300.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t음료\t차음료\t1800.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t음료\t탄산음료\t3900.0\n2015-01-01 23:00:00.000\t2015-01-02 00:00:00.000\t간편식사\t주먹밥\t2400.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t담배\t담배\t10100.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t아이스크림\t일반아이스크림\t2000.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t신변잡화\t의류용품\t7000.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t과자류\t스낵류\t1200.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t음료\t탄산음료\t1000.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t음료\t커피음료\t1900.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t과자류\t캔디\t2000.0\n2015-01-02 00:00:00.000\t2015-01-02 01:00:00.000\t생활잡화\t전기연료\t18800.0\n2015-01-02 01:00:00.000\t2015-01-02 02:00:00.000\t담배\t담배\t5400.0\n2015-01-02 01:00:00.000\t2015-01-02 02:00:00.000\t과자류\t스낵류\t1100.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t담배\t담배\t15100.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t주류\t소주\t2800.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t신변잡화\t위생용품\t1900.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t가공식사제품\t면류\t1200.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t주류\t맥주\t4150.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t과자류\t스낵류\t1500.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t과자류\t캔디\t500.0\n2015-01-02 02:00:00.000\t2015-01-02 03:00:00.000\t음료\t우유\t1500.0\n2015-01-02 03:00:00.000\t2015-01-02 04:00:00.000\t주류\t맥주\t8400.0\n2015-01-02 03:00:00.000\t2015-01-02 04:00:00.000\t담배\t담배\t2500.0\n2015-01-02 03:00:00.000\t2015-01-02 04:00:00.000\t안주류\t육가공류\t3300.0\n2015-01-02 03:00:00.000\t2015-01-02 04:00:00.000\t과자류\t스낵류\t2500.0\n2015-01-02 04:00:00.000\t2015-01-02 05:00:00.000\t간편식사\t주먹밥\t1600.0\n2015-01-02 04:00:00.000\t2015-01-02 05:00:00.000\t담배\t담배\t25700.0\n2015-01-02 04:00:00.000\t2015-01-02 05:00:00.000\t음료\t생수\t3100.0\n2015-01-02 05:00:00.000\t2015-01-02 06:00:00.000\t빵/떡/디저트\t빵\t2800.0\n2015-01-02 05:00:00.000\t2015-01-02 06:00:00.000\t음료\t요구르트\t5400.0\n2015-01-02 05:00:00.000\t2015-01-02 06:00:00.000\t담배\t담배\t5000.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t담배\t담배\t2700.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t간편식사\t주먹밥\t2400.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t음료\t과일야채음료\t1900.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t빵/떡/디저트\t빵\t1200.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t과자류\t껌\t500.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t과자류\t비스켓/쿠키\t1200.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t가공식사제품\t냉동즉석식\t4000.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t음료\t우유\t1300.0\n2015-01-02 07:00:00.000\t2015-01-02 08:00:00.000\t음료\t커피음료\t2000.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t음료\t탄산음료\t1100.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t담배\t담배\t2500.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t빵/떡/디저트\t빵\t600.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t신변잡화\t화장품\t5000.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t식재료\t과일/채소\t1200.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t음료\t우유\t2500.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t음료\t커피음료\t2600.0\n2015-01-02 08:00:00.000\t2015-01-02 09:00:00.000\t가공식사제품\t면류\t1300.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t의약건강기능\t안전상비의약품\t2500.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t담배\t담배\t38500.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t간편식사\t도시락\t3000.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t식재료\t커피차류\t3800.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t의약건강기능\t의약외품\t800.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t음료\t커피음료\t1400.0\n2015-01-02 09:00:00.000\t2015-01-02 10:00:00.000\t음료\t기능건강음료\t1200.0\n2015-01-02 10:00:00.000\t2015-01-02 11:00:00.000\t음료\t요구르트\t1800.0\n2015-01-02 10:00:00.000\t2015-01-02 11:00:00.000\t음료\t기능건강음료\t2000.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t가공식사제품\t면류\t2750.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t음료\t생수\t3000.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t과자류\t스낵류\t2000.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t담배\t담배\t14200.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t간편식사\t도시락\t3300.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t음료\t우유\t1300.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t음료\t커피음료\t3800.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t생활잡화\t전기연료\t600.0\n2015-01-02 11:00:00.000\t2015-01-02 12:00:00.000\t간편식사\t햄버거류\t1300.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t음료\t우유\t1500.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t음료\t기능건강음료\t1000.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t음료\t생수\t1000.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t간편식사\t샌드위치류\t2300.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t음료\t요구르트\t5400.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t음료\t커피음료\t3000.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t담배\t담배\t2700.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t간편식사\t햄버거류\t1200.0\n2015-01-02 12:00:00.000\t2015-01-02 13:00:00.000\t생활잡화\t홈/주방용품\t3000.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t과자류\t스낵류\t6000.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t간편식사\t주먹밥\t2900.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t음료\t우유\t2400.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t음료\t생수\t3000.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t주류\t소주\t1400.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t담배\t담배\t10600.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t가공식사제품\t면류\t1200.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t생활잡화\t전기연료\t2000.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t가공식사제품\t상온즉석식\t2600.0\n2015-01-02 13:00:00.000\t2015-01-02 14:00:00.000\t음료\t차음료\t1500.0\n2015-01-02 14:00:00.000\t2015-01-02 15:00:00.000\t과자류\t캔디\t2000.0\n2015-01-02 14:00:00.000\t2015-01-02 15:00:00.000\t주류\t맥주\t1850.0\n2015-01-02 14:00:00.000\t2015-01-02 15:00:00.000\t가공식사제품\t상온즉석식\t1300.0\n2015-01-02 15:00:00.000\t2015-01-02 16:00:00.000\t과자류\t초콜릿\t1000.0\n2015-01-02 15:00:00.000\t2015-01-02 16:00:00.000\t담배\t담배\t2700.0\n2015-01-02 15:00:00.000\t2015-01-02 16:00:00.000\t음료\t커피음료\t1600.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t과자류\t스낵류\t1800.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t음료\t우유\t4700.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t식재료\t축수산식재료\t5000.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t간편식사\t주먹밥\t800.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t아이스크림\t일반아이스크림\t4500.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t음료\t기능건강음료\t4000.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t음료\t커피음료\t11800.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t빵/떡/디저트\t빵\t900.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t음료\t생수\t1000.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t담배\t담배\t23900.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t과자류\t초콜릿\t10000.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t가공식사제품\t면류\t1050.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t신변잡화\t위생용품\t4900.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t담배\t담배\t21600.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t빵/떡/디저트\t빵\t600.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t과자류\t스낵류\t3500.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t간편식사\t주먹밥\t800.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t의약건강기능\t안전상비의약품\t1500.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t음료\t차음료\t1900.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t음료\t생수\t6000.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t가공식사제품\t면류\t2290.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t생활잡화\t홈/주방용품\t900.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t음료\t우유\t900.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t음료\t탄산음료\t2200.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t과자류\t캔디\t600.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t담배\t담배\t2700.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t아이스크림\t일반아이스크림\t1500.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t음료\t기능건강음료\t2600.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t과자류\t초콜릿\t1000.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t신변잡화\t위생용품\t2200.0\n2015-01-02 18:00:00.000\t2015-01-02 19:00:00.000\t가공식사제품\t면류\t2850.0\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT window_start, window_end, division_name,maincategory_name, sum(mount) as sum_of_mount \nFROM TABLE(\n   TUMBLE(\n     DATA => TABLE transaction_order_flink,\n     TIMECOL => DESCRIPTOR(tr_datetime),\n     SIZE => INTERVAL '1' HOURS))\n\tGROUP BY window_start, window_end, division_name, maincategory_name\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: f66b0121e0e951a5a3c8b9ca4dbc2574)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: f66b0121e0e951a5a3c8b9ca4dbc2574)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n\n## 실습 4 \n\n- 결과값 1개를 반환하는 Single Type의 결과물로 현재까지의 `판매금액`, `방문객`, `최종 거래 일시`를 표시\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:47:01+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061996903_358974768",
+      "id": "paragraph_1694061996903_358974768",
+      "dateCreated": "2023-09-07T04:46:36+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:20408",
+      "dateFinished": "2023-09-07T04:47:01+0000",
+      "dateStarted": "2023-09-07T04:47:01+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 4</h2>\n<ul>\n<li>결과값 1개를 반환하는 Single Type의 결과물로 현재까지의 <code>판매금액</code>, <code>방문객</code>, <code>최종 거래 일시</code>를 표시</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=single, parallelism=1, refreshInterval=1000, template=<h1> Today Sales </h1> <h1> 판매금액 : {2}</h1> <h2> 방문객 : {1} <h2> 현재까지 <h2>{0} </h2>)\n\nSELECT max(tr_datetime), count(distinct receipt_num), sum(mount) from transaction_order_flink",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:47:06+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/80241c76022a35b621fe27c6fe59ee18",
+              "$$hashKey": "object:21495"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694061504302_726896035",
+      "id": "paragraph_1694061504302_726896035",
+      "dateCreated": "2023-09-07T04:38:24+0000",
+      "status": "ERROR",
+      "focus": true,
+      "$$hashKey": "object:10934",
+      "dateFinished": "2023-09-07T04:48:40+0000",
+      "dateStarted": "2023-09-07T04:47:06+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "<h1> Today Sales </h1> <h1> 판매금액 : {{value_2}}</h1> <h2> 방문객 : {{value_1}} <h2> 현재까지 <h2>{{value_0}} </h2>\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT max(tr_datetime), count(distinct receipt_num), sum(mount) from transaction_order_flink\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>RuntimeException: Retries exceeded for getRecords operation - all 3 retry attempts failed.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run single type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:68)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:66)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 80241c76022a35b621fe27c6fe59ee18)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 80241c76022a35b621fe27c6fe59ee18)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobExecutionException: Job execution failed.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:144)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\nCaused by: org.apache.flink.runtime.JobException: Recovery is suppressed by NoRestartBackoffTimeStrategy\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.handleFailure(ExecutionFailureHandler.java:138)\n\tat org.apache.flink.runtime.executiongraph.failover.flip1.ExecutionFailureHandler.getFailureHandlingResult(ExecutionFailureHandler.java:82)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.handleTaskFailure(DefaultScheduler.java:309)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.maybeHandleTaskFailure(DefaultScheduler.java:299)\n\tat org.apache.flink.runtime.scheduler.DefaultScheduler.updateTaskExecutionStateInternal(DefaultScheduler.java:290)\n\tat org.apache.flink.runtime.scheduler.SchedulerBase.updateTaskExecutionState(SchedulerBase.java:788)\n\tat org.apache.flink.runtime.scheduler.SchedulerNG.updateTaskExecutionState(SchedulerNG.java:79)\n\tat org.apache.flink.runtime.jobmaster.JobMaster.updateTaskExecutionState(JobMaster.java:452)\n\tat jdk.internal.reflect.GeneratedMethodAccessor116.invoke(Unknown Source)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.lambda$handleRpcInvocation$1(AkkaRpcActor.java:304)\n\tat org.apache.flink.runtime.concurrent.akka.ClassLoadingUtils.runWithContextClassLoader(ClassLoadingUtils.java:83)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcInvocation(AkkaRpcActor.java:302)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleRpcMessage(AkkaRpcActor.java:217)\n\tat org.apache.flink.runtime.rpc.akka.FencedAkkaRpcActor.handleRpcMessage(FencedAkkaRpcActor.java:78)\n\tat org.apache.flink.runtime.rpc.akka.AkkaRpcActor.handleMessage(AkkaRpcActor.java:163)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:24)\n\tat akka.japi.pf.UnitCaseStatement.apply(CaseStatements.scala:20)\n\tat scala.PartialFunction.applyOrElse(PartialFunction.scala:123)\n\tat scala.PartialFunction.applyOrElse$(PartialFunction.scala:122)\n\tat akka.japi.pf.UnitCaseStatement.applyOrElse(CaseStatements.scala:20)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:171)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat scala.PartialFunction$OrElse.applyOrElse(PartialFunction.scala:172)\n\tat akka.actor.Actor.aroundReceive(Actor.scala:537)\n\tat akka.actor.Actor.aroundReceive$(Actor.scala:535)\n\tat akka.actor.AbstractActor.aroundReceive(AbstractActor.scala:220)\n\tat akka.actor.ActorCell.receiveMessage(ActorCell.scala:580)\n\tat akka.actor.ActorCell.invoke(ActorCell.scala:548)\n\tat akka.dispatch.Mailbox.processMailbox(Mailbox.scala:270)\n\tat akka.dispatch.Mailbox.run(Mailbox.scala:231)\n\tat akka.dispatch.Mailbox.exec(Mailbox.scala:243)\n\tat java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)\n\tat java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)\n\tat java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)\n\tat java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)\n\tat java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)\nCaused by: java.lang.RuntimeException: Retries exceeded for getRecords operation - all 3 retry attempts failed.\n\tat org.apache.flink.streaming.connectors.kinesis.proxy.KinesisProxy.getRecords(KinesisProxy.java:320)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.getRecords(PollingRecordPublisher.java:168)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.run(PollingRecordPublisher.java:113)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.publisher.polling.PollingRecordPublisher.run(PollingRecordPublisher.java:102)\n\tat org.apache.flink.streaming.connectors.kinesis.internals.ShardConsumer.run(ShardConsumer.java:114)\n\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n## 실습 5\n- 1시간당 매출 합계 추이를 Chart 로 표현\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:47:52+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062026170_1849896871",
+      "id": "paragraph_1694062026170_1849896871",
+      "dateCreated": "2023-09-07T04:47:06+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:20495",
+      "dateFinished": "2023-09-07T04:47:52+0000",
+      "dateStarted": "2023-09-07T04:47:52+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 5</h2>\n<ul>\n<li>1시간당 매출 합계 추이를 Chart 로 표현</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n-- 텀블링 창을 집계로 활용 (1시간 동안 매출)\nSELECT window_start, window_end, sum(mount) as sum_of_mount FROM TABLE(\n   TUMBLE(\n     DATA => TABLE transaction_order_flink,\n     TIMECOL => DESCRIPTOR(tr_datetime),\n     SIZE => INTERVAL '1' HOURS))\n  GROUP BY window_start, window_end;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:48:26+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "window_start": "string",
+                      "window_end": "string",
+                      "sum_of_mount": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "window_start",
+                  "index": 0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "sum_of_mount",
+                  "index": 2,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/b9b0cf4fb5a36cf7ca2cb0fe7de400fe",
+              "$$hashKey": "object:21588"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062072791_127876284",
+      "id": "paragraph_1694062072791_127876284",
+      "dateCreated": "2023-09-07T04:47:52+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:20597",
+      "dateFinished": "2023-09-07T04:48:53+0000",
+      "dateStarted": "2023-09-07T04:48:04+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "window_start\twindow_end\tsum_of_mount\n2015-01-05 01:00:00.000\t2015-01-05 02:00:00.000\t51400.0\n2015-01-05 02:00:00.000\t2015-01-05 03:00:00.000\t67650.0\n2015-01-05 03:00:00.000\t2015-01-05 04:00:00.000\t50200.0\n2015-01-05 04:00:00.000\t2015-01-05 05:00:00.000\t18000.0\n2015-01-05 05:00:00.000\t2015-01-05 06:00:00.000\t18500.0\n2015-01-05 06:00:00.000\t2015-01-05 07:00:00.000\t11200.0\n2015-01-05 07:00:00.000\t2015-01-05 08:00:00.000\t33700.0\n2015-01-05 08:00:00.000\t2015-01-05 09:00:00.000\t69100.0\n2015-01-05 09:00:00.000\t2015-01-05 10:00:00.000\t32700.0\n2015-01-05 10:00:00.000\t2015-01-05 11:00:00.000\t32850.0\n2015-01-05 11:00:00.000\t2015-01-05 12:00:00.000\t67050.0\n2015-01-05 12:00:00.000\t2015-01-05 13:00:00.000\t58500.0\n2015-01-05 13:00:00.000\t2015-01-05 14:00:00.000\t49940.0\n2015-01-05 14:00:00.000\t2015-01-05 15:00:00.000\t49170.0\n2015-01-05 15:00:00.000\t2015-01-05 16:00:00.000\t69900.0\n2015-01-05 16:00:00.000\t2015-01-05 17:00:00.000\t67150.0\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT window_start, window_end, sum(mount) as sum_of_mount FROM TABLE(\n   TUMBLE(\n     DATA => TABLE transaction_order_flink,\n     TIMECOL => DESCRIPTOR(tr_datetime),\n     SIZE => INTERVAL '1' HOURS))\n  GROUP BY window_start, window_end\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: b9b0cf4fb5a36cf7ca2cb0fe7de400fe)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: b9b0cf4fb5a36cf7ca2cb0fe7de400fe)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n\n## 실습 6\n- 1시간씩 누적하여 최종 24시간 매출을 누적하여 표출하는 실습\n- 1시간씩 누적 후 24시간이 지나면 다시 Refresh 되어 1시간부터 24시간으로 다시 적재된다. \n- 해당 결과물을 S3 로 적재하는 SQL\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:52:21+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062084041_177409560",
+      "id": "paragraph_1694062084041_177409560",
+      "dateCreated": "2023-09-07T04:48:04+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:20678",
+      "dateFinished": "2023-09-07T04:52:21+0000",
+      "dateStarted": "2023-09-07T04:52:21+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 6</h2>\n<ul>\n<li>1시간씩 누적하여 최종 24시간 매출을 누적하여 표출하는 실습</li>\n<li>1시간씩 누적 후 24시간이 지나면 다시 Refresh 되어 1시간부터 24시간으로 다시 적재된다.</li>\n<li>해당 결과물을 S3 로 적재하는 SQL</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n-- CUMULATE 누적 매출\n-- 1시간씩 데이터를 누적하되, 24시간이 최대로 누적되고 다음날이 되면 다시 Reset\nSELECT window_start, window_end, sum(mount) as sum_of_mount FROM \n\tTABLE(\n    CUMULATE(\n      DATA => TABLE transaction_order_flink3,\n      TIMECOL => DESCRIPTOR(tr_datetime),\n      STEP => INTERVAL '1' HOURS,\n      SIZE => INTERVAL '24' HOURS))\n\tGROUP BY window_start, window_end;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:51:12+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062249618_2093028170",
+      "id": "paragraph_1694062249618_2093028170",
+      "dateCreated": "2023-09-07T04:50:49+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:21610"
+    },
+    {
+      "text": "%md\n\n### 결과물을 저장할 테이블 생성\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:52:36+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062343883_1392694223",
+      "id": "paragraph_1694062343883_1392694223",
+      "dateCreated": "2023-09-07T04:52:23+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:21833",
+      "dateFinished": "2023-09-07T04:52:36+0000",
+      "dateStarted": "2023-09-07T04:52:36+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h3>결과물을 저장할 테이블 생성</h3>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nDROP TABLE IF EXISTS timely_cumulate_sum_of_sales;\n\nCREATE TABLE timely_cumulate_sum_of_sales(\n    window_start TIMESTAMP,\n    window_end TIMESTAMP,\n    sum_of_mount DOUBLE\n)\nWITH (\n   'connector'='filesystem',\n   'path' = 's3a://hist-streaming-lab-blee/data2/summary/timely_cumulate_sum_of_sales',\n   'format' = 'json',\n   'sink.partition-commit.policy.kind'='success-file',\n   'sink.partition-commit.delay' = '1 min'\n)",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:52:45+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062356082_1219789257",
+      "id": "paragraph_1694062356082_1219789257",
+      "dateCreated": "2023-09-07T04:52:36+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:21908",
+      "dateFinished": "2023-09-07T04:52:47+0000",
+      "dateStarted": "2023-09-07T04:52:45+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Table has been dropped.\nTable has been created.\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql(type=update)\n\nINSERT INTO timely_cumulate_sum_of_sales SELECT window_start, window_end, sum(mount) as sum_of_mount FROM \n\tTABLE(\n    CUMULATE(\n      DATA => TABLE transaction_order_flink_restart,\n      TIMECOL => DESCRIPTOR(tr_datetime),\n      STEP => INTERVAL '1' HOURS,\n      SIZE => INTERVAL '24' HOURS))\n\tGROUP BY window_start, window_end;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:53:04+0000",
+      "progress": 0,
+      "config": {
+        "latest_checkpoint_path": "s3://c8346d49dd06d3204eee7db29037b65e4e65bb57/61c69d4cc20be9f13a7e41d5563a3123-363292119458-1694059655790/checkpoints/4d07523a87d5b5c192e9689517887c0d/chk-1",
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/4d07523a87d5b5c192e9689517887c0d",
+              "$$hashKey": "object:22250"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062361671_2102565936",
+      "id": "paragraph_1694062361671_2102565936",
+      "dateCreated": "2023-09-07T04:52:41+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:21989",
+      "dateFinished": "2023-09-07T04:54:36+0000",
+      "dateStarted": "2023-09-07T04:53:04+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "ANGULAR",
+            "data": "<h1>Duration: {{duration}} </h1>\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: INSERT INTO timely_cumulate_sum_of_sales SELECT window_start, window_end, sum(mount) as sum_of_mount FROM \n\tTABLE(\n    CUMULATE(\n      DATA => TABLE transaction_order_flink_restart,\n      TIMECOL => DESCRIPTOR(tr_datetime),\n      STEP => INTERVAL '1' HOURS,\n      SIZE => INTERVAL '24' HOURS))\n\tGROUP BY window_start, window_end\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.io.IOException: Flink job is failed\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callInserts(Flink115SqlInterpreter.java:397)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callInsert(Flink115SqlInterpreter.java:371)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:287)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callInserts(Flink115SqlInterpreter.java:385)\n\t... 16 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 4d07523a87d5b5c192e9689517887c0d)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 4d07523a87d5b5c192e9689517887c0d)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n\n## 실습 7 \n- ROLL UP 함수를 사용하여 대분류 전체를 집계하는 SQL \n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:55:01+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062488844_599001603",
+      "id": "paragraph_1694062488844_599001603",
+      "dateCreated": "2023-09-07T04:54:48+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:22257",
+      "dateFinished": "2023-09-07T04:55:01+0000",
+      "dateStarted": "2023-09-07T04:55:01+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 7</h2>\n<ul>\n<li>ROLL UP 함수를 사용하여 대분류 전체를 집계하는 SQL</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n-- 윈도우 집계 ROLL UP(대분류 별로 매출)\nSELECT window_start, window_end, division_name, sum(mount) as sum_of_mount\n\tFROM TABLE(\n   TUMBLE(\n     DATA => TABLE transaction_order_flink,\n     TIMECOL => DESCRIPTOR(tr_datetime),\n     SIZE => INTERVAL '1' HOURS))\n  GROUP BY window_start, window_end, ROLLUP(division_name)\n  HAVING division_name is not null and SUM(mount) > 20000; -- 2만원 이상 매출\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:58:39+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "window_start": "string",
+                      "window_end": "string",
+                      "division_name": "string",
+                      "sum_of_mount": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/f7bdb5a7a6bcd6384aceec9225cd34bf",
+              "$$hashKey": "object:27261"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062384437_569720731",
+      "id": "paragraph_1694062384437_569720731",
+      "dateCreated": "2023-09-07T04:53:04+0000",
+      "status": "RUNNING",
+      "focus": true,
+      "$$hashKey": "object:22107",
+      "dateStarted": "2023-09-07T04:58:34+0000",
+      "results": {
+        "msg": [
+          {
+            "data": "window_start\twindow_end\tdivision_name\tsum_of_mount\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t음료\t21500.0\n2015-01-02 16:00:00.000\t2015-01-02 17:00:00.000\t담배\t23900.0\n2015-01-02 17:00:00.000\t2015-01-02 18:00:00.000\t담배\t21600.0\n2015-01-02 19:00:00.000\t2015-01-02 20:00:00.000\t담배\t28800.0\n2015-01-02 20:00:00.000\t2015-01-02 21:00:00.000\t생활잡화\t29750.0\n2015-01-02 20:00:00.000\t2015-01-02 21:00:00.000\t담배\t40100.0\n2015-01-02 20:00:00.000\t2015-01-02 21:00:00.000\t음료\t23300.0\n2015-01-02 20:00:00.000\t2015-01-02 21:00:00.000\t과자류\t21200.0\n2015-01-02 21:00:00.000\t2015-01-02 22:00:00.000\t담배\t32800.0\n2015-01-02 21:00:00.000\t2015-01-02 22:00:00.000\t유가증권\t70000.0\n2015-01-02 22:00:00.000\t2015-01-02 23:00:00.000\t담배\t61500.0\n2015-01-02 22:00:00.000\t2015-01-02 23:00:00.000\t주류\t90250.0\n2015-01-02 22:00:00.000\t2015-01-02 23:00:00.000\t음료\t25200.0\n2015-01-02 23:00:00.000\t2015-01-03 00:00:00.000\t담배\t41400.0\n2015-01-02 23:00:00.000\t2015-01-03 00:00:00.000\t음료\t22000.0\n2015-01-03 00:00:00.000\t2015-01-03 01:00:00.000\t주류\t21850.0\n2015-01-03 00:00:00.000\t2015-01-03 01:00:00.000\t가공식사제품\t37850.0\n2015-01-03 00:00:00.000\t2015-01-03 01:00:00.000\t음료\t25950.0\n2015-01-03 02:00:00.000\t2015-01-03 03:00:00.000\t음료\t25800.0\n2015-01-03 02:00:00.000\t2015-01-03 03:00:00.000\t주류\t38350.0\n2015-01-03 02:00:00.000\t2015-01-03 03:00:00.000\t담배\t39800.0\n2015-01-03 07:00:00.000\t2015-01-03 08:00:00.000\t담배\t59000.0\n2015-01-03 09:00:00.000\t2015-01-03 10:00:00.000\t음료\t21300.0\n2015-01-03 12:00:00.000\t2015-01-03 13:00:00.000\t담배\t217300.0\n2015-01-03 13:00:00.000\t2015-01-03 14:00:00.000\t담배\t29000.0\n2015-01-03 16:00:00.000\t2015-01-03 17:00:00.000\t담배\t31700.0\n2015-01-03 17:00:00.000\t2015-01-03 18:00:00.000\t담배\t38700.0\n2015-01-03 18:00:00.000\t2015-01-03 19:00:00.000\t주류\t24200.0\n",
+            "type": "TABLE"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n## 실습 8 \n- 1시간 마다 매출 TOP3 대분류를 조회",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:56:20+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062539252_1481952749",
+      "id": "paragraph_1694062539252_1481952749",
+      "dateCreated": "2023-09-07T04:55:39+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:22509",
+      "dateFinished": "2023-09-07T04:56:20+0000",
+      "dateStarted": "2023-09-07T04:56:20+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<h2>실습 8</h2>\n<ul>\n<li>1시간 마다 매출 TOP3 대분류를 조회</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n-- 1시간 마다 매출 TOP 3\nSELECT *\n  FROM (\n    SELECT *, ROW_NUMBER() OVER (PARTITION BY window_start, window_end ORDER BY mount DESC) as rownum\n    FROM (\n      SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt\n      FROM TABLE(\n        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))\n      GROUP BY window_start, window_end, division_name\n    )\n  ) WHERE rownum <= 3;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:57:50+0000",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "window_start": "string",
+                      "window_end": "string",
+                      "division_name": "string",
+                      "mount": "string",
+                      "cnt": "string",
+                      "rownum": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/66809a584184cb2f431eb90860e6aa88",
+              "$$hashKey": "object:26652"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062580100_209415390",
+      "id": "paragraph_1694062580100_209415390",
+      "dateCreated": "2023-09-07T04:56:20+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:22600",
+      "dateFinished": "2023-09-07T04:58:27+0000",
+      "dateStarted": "2023-09-07T04:57:42+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "window_start\twindow_end\tdivision_name\tmount\tcnt\trownum\n2015-01-01 14:00:00.000\t2015-01-01 15:00:00.000\t음료\t20950.0\t11\t1\n2015-01-01 14:00:00.000\t2015-01-01 15:00:00.000\t주류\t10400.0\t1\t2\n2015-01-01 14:00:00.000\t2015-01-01 15:00:00.000\t담배\t5000.0\t2\t3\n2015-01-01 15:00:00.000\t2015-01-01 16:00:00.000\t담배\t26100.0\t9\t1\n2015-01-01 15:00:00.000\t2015-01-01 16:00:00.000\t과자류\t5000.0\t4\t2\n2015-01-01 15:00:00.000\t2015-01-01 16:00:00.000\t음료\t4550.0\t3\t3\n2015-01-01 16:00:00.000\t2015-01-01 17:00:00.000\t음료\t8400.0\t4\t1\n2015-01-01 16:00:00.000\t2015-01-01 17:00:00.000\t가공식사제품\t5700.0\t3\t2\n2015-01-01 16:00:00.000\t2015-01-01 17:00:00.000\t담배\t5400.0\t2\t3\n2015-01-01 17:00:00.000\t2015-01-01 18:00:00.000\t음료\t14700.0\t9\t1\n2015-01-01 17:00:00.000\t2015-01-01 18:00:00.000\t담배\t12900.0\t4\t2\n2015-01-01 17:00:00.000\t2015-01-01 18:00:00.000\t가공식사제품\t9560.0\t6\t3\n2015-01-01 18:00:00.000\t2015-01-01 19:00:00.000\t담배\t18600.0\t5\t1\n2015-01-01 18:00:00.000\t2015-01-01 19:00:00.000\t음료\t8000.0\t5\t2\n2015-01-01 18:00:00.000\t2015-01-01 19:00:00.000\t간편식사\t6200.0\t5\t3\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t음료\t32350.0\t10\t1\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t주류\t20700.0\t2\t2\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t담배\t19600.0\t5\t3\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t담배\t27000.0\t7\t1\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t음료\t17000.0\t10\t2\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t안주류\t9600.0\t2\t3\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t담배\t18300.0\t5\t1\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t음료\t16000.0\t7\t2\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t가공식사제품\t10150.0\t6\t3\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT *\n  FROM (\n    SELECT *, ROW_NUMBER() OVER (PARTITION BY window_start, window_end ORDER BY mount DESC) as rownum\n    FROM (\n      SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt\n      FROM TABLE(\n        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))\n      GROUP BY window_start, window_end, division_name\n    )\n  ) WHERE rownum <= 3\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 66809a584184cb2f431eb90860e6aa88)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: 66809a584184cb2f431eb90860e6aa88)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%md\n- 담배가 항상 TOP으로 올라와 담배를 제외한 항목 조회\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:56:51+0000",
+      "progress": 0,
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062599723_1986771200",
+      "id": "paragraph_1694062599723_1986771200",
+      "dateCreated": "2023-09-07T04:56:39+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:22750",
+      "dateFinished": "2023-09-07T04:56:51+0000",
+      "dateStarted": "2023-09-07T04:56:51+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "<div class=\"markdown-body\">\n<ul>\n<li>담배가 항상 TOP으로 올라와 담배를 제외한 항목 조회</li>\n</ul>\n\n</div>"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\nSELECT *\n  FROM (\n    SELECT *, ROW_NUMBER() OVER (PARTITION BY window_start, window_end ORDER BY mount DESC) as rownum\n    FROM (\n      SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt\n      FROM TABLE(\n        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))\n      GROUP BY window_start, window_end, division_name\n      HAVING division_name not in ('담배')\n    )\n  ) WHERE rownum <= 3;",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:58:02+0000",
+      "progress": 0,
+      "config": {
+        "latest_checkpoint_path": "s3://c8346d49dd06d3204eee7db29037b65e4e65bb57/61c69d4cc20be9f13a7e41d5563a3123-363292119458-1694059655790/checkpoints/dec06dfff63f2418e8b4c5c9ff5350c7/chk-1",
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "window_start": "string",
+                      "window_end": "string",
+                      "division_name": "string",
+                      "mount": "string",
+                      "cnt": "string",
+                      "rownum": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "FLINK JOB",
+          "tooltip": "View in Flink web UI",
+          "group": "flink",
+          "values": [
+            {
+              "jobUrl": "/flinkdashboard/#/job/dec06dfff63f2418e8b4c5c9ff5350c7",
+              "$$hashKey": "object:26703"
+            }
+          ],
+          "interpreterSettingId": "flink"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062594524_530476618",
+      "id": "paragraph_1694062594524_530476618",
+      "dateCreated": "2023-09-07T04:56:34+0000",
+      "status": "ABORT",
+      "focus": true,
+      "$$hashKey": "object:22681",
+      "dateFinished": "2023-09-07T04:58:29+0000",
+      "dateStarted": "2023-09-07T04:57:44+0000",
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "window_start\twindow_end\tdivision_name\tmount\tcnt\trownum\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t음료\t6700.0\t3\t1\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t주류\t5500.0\t1\t2\n2015-01-01 19:00:00.000\t2015-01-01 20:00:00.000\t과자류\t5500.0\t4\t3\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t음료\t17000.0\t10\t1\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t안주류\t9600.0\t2\t2\n2015-01-01 20:00:00.000\t2015-01-01 21:00:00.000\t취미/레저\t9000.0\t1\t3\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t음료\t13500.0\t6\t1\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t가공식사제품\t10150.0\t6\t2\n2015-01-01 21:00:00.000\t2015-01-01 22:00:00.000\t주류\t7400.0\t1\t3\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to run sql command: SELECT *\n  FROM (\n    SELECT *, ROW_NUMBER() OVER (PARTITION BY window_start, window_end ORDER BY mount DESC) as rownum\n    FROM (\n      SELECT window_start, window_end, division_name, SUM(mount) as mount, COUNT(*) as cnt\n      FROM TABLE(\n        TUMBLE(TABLE transaction_order_flink, DESCRIPTOR(tr_datetime), INTERVAL '1' HOURS))\n      GROUP BY window_start, window_end, division_name\n      HAVING division_name not in ('담배')\n    )\n  ) WHERE rownum <= 3\n"
+          },
+          {
+            "type": "ANGULAR",
+            "data": "<div class='container ng-scope' style='padding-left:0px;padding-right:0px;'>\n    <div class='panel panel-danger'>\n        <div class='panel-heading' ng-click='isOpen=!isOpen' ng-init='isOpen=false' style=\"cursor:pointer\">\n            <div class='plainTextContainer' style='font-weight:bolder'><i class=\"fa fa-caret-right fa-fw\" style=\"padding-right:7px;transition:all 0.3s;{{isOpen?'transform:rotate(90deg);transform-origin:25% 45%':''}}\"></i>Job was cancelled.</div>\n        </div>\n        <div class='panel-collapse' uib-collapse='!isOpen'>\n            <div class='text' style='max-height:300px;overflow:auto;padding:10px'>java.lang.RuntimeException: Fail to run update type stream job\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:94)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.lambda$open$0(FlinkStreamSqlInterpreter.java:49)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callStreamInnerSelect(Flink115SqlInterpreter.java:451)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callSelect(Flink115SqlInterpreter.java:435)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.callOperation(Flink115SqlInterpreter.java:290)\n\tat org.apache.zeppelin.flink.Flink115SqlInterpreter.runSqlList(Flink115SqlInterpreter.java:236)\n\tat org.apache.zeppelin.flink.Flink115Shims.runSqlList(Flink115Shims.java:315)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.runSqlList(FlinkStreamSqlInterpreter.java:103)\n\tat org.apache.zeppelin.flink.FlinkSqlInterpreter.internalInterpret(FlinkSqlInterpreter.java:63)\n\tat org.apache.zeppelin.interpreter.AbstractInterpreter.interpret(AbstractInterpreter.java:55)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:110)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:860)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:752)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:172)\n\tat org.apache.zeppelin.scheduler.AbstractScheduler.runJob(AbstractScheduler.java:132)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler.lambda$runJobInScheduler$0(ParallelScheduler.java:46)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n\tat java.base/java.lang.Thread.run(Thread.java:829)\nCaused by: java.io.IOException: Fail to run stream sql job\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:165)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:109)\n\tat org.apache.zeppelin.flink.FlinkStreamSqlInterpreter.callInnerSelect(FlinkStreamSqlInterpreter.java:92)\n\t... 18 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.TableResultImpl.awaitInternal(TableResultImpl.java:118)\n\tat org.apache.flink.table.api.internal.TableResultImpl.await(TableResultImpl.java:81)\n\tat org.apache.zeppelin.flink.sql.AbstractStreamSqlJob.run(AbstractStreamSqlJob.java:154)\n\t... 20 more\nCaused by: org.apache.flink.table.api.TableException: Failed to wait job finish\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:85)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.isFirstRowReady(InsertResultProvider.java:71)\n\tat org.apache.flink.table.api.internal.TableResultImpl.lambda$awaitInternal$1(TableResultImpl.java:105)\n\tat java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1736)\n\t... 3 more\nCaused by: java.util.concurrent.ExecutionException: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: dec06dfff63f2418e8b4c5c9ff5350c7)\n\tat java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:395)\n\tat java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1999)\n\tat org.apache.flink.table.api.internal.InsertResultProvider.hasNext(InsertResultProvider.java:83)\n\t... 6 more\nCaused by: org.apache.flink.client.program.ProgramInvocationException: Job failed (JobID: dec06dfff63f2418e8b4c5c9ff5350c7)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:130)\n\tat java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.client.program.rest.RestClusterClient.lambda$pollResourceAsync$26(RestClusterClient.java:708)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.complete(CompletableFuture.java:2073)\n\tat org.apache.flink.util.concurrent.FutureUtils.lambda$retryOperationWithDelay$9(FutureUtils.java:403)\n\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:859)\n\tat java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:837)\n\tat java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)\n\tat java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:610)\n\tat java.base/java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1085)\n\tat java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)\n\t... 3 more\nCaused by: org.apache.flink.runtime.client.JobCancellationException: Job was cancelled.\n\tat org.apache.flink.runtime.jobmaster.JobResult.toJobExecutionResult(JobResult.java:146)\n\tat org.apache.flink.client.deployment.ClusterClientJobClientAdapter.lambda$getJobExecutionResult$6(ClusterClientJobClientAdapter.java:128)\n\t... 23 more\n</div>\n        </div>\n    </div>\n</div>\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%flink.ssql\n",
+      "user": "anonymous",
+      "dateUpdated": "2023-09-07T04:57:44+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1694062664052_119513884",
+      "id": "paragraph_1694062664052_119513884",
+      "dateCreated": "2023-09-07T04:57:44+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:22886"
+    }
+  ],
+  "name": "df_flink_sql_example",
+  "id": "2JCKXQDJT",
+  "defaultInterpreterGroup": "flink",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/df_flink_sql_example"
+}
